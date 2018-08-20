@@ -11,7 +11,9 @@ object Common {
   private val installESLintCommands = {
     s"""apk update &&
        |apk add bash curl nodejs-npm &&
-       |./install-tool.sh
+       |./install-tool.sh &&
+       |rm -rf /tmp/* &&
+       |rm -rf /var/cache/apk/*
       """.stripMargin.replaceAll(System.lineSeparator(), " ")
   }
 
