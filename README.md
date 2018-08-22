@@ -1,6 +1,7 @@
 # codacy-metrics-eslint
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/project/Codacy/codacy-metrics-eslint/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-metrics-eslint&amp;utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/app/Codacy/codacy-metrics-eslint?utm_source=github.com&utm_medium=referral&utm_content=codacy/codacy-metrics-eslint&utm_campaign=Badge_Coverage)
 [![CircleCI](https://circleci.com/gh/codacy/codacy-metrics-eslint.svg?style=svg)](https://circleci.com/gh/codacy/codacy-metrics-eslint)
 [![Docker Version](https://images.microbadger.com/badges/version/codacy/codacy-metrics-eslint.svg)](https://microbadger.com/images/codacy/codacy-metrics-eslint "Get your own version badge on microbadger.com")
 
