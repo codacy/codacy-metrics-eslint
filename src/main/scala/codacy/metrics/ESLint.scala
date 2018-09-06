@@ -4,11 +4,11 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.StandardOpenOption
 
 import better.files._
-import codacy.docker.api.metrics.{FileMetrics, LineComplexity, MetricsTool}
-import codacy.docker.api.{MetricsConfiguration, Source}
 import codacy.utils.XML
-import com.codacy.api.dtos.{Language, Languages}
 import com.codacy.docker.api.utils.{CommandResult, CommandRunner, FileHelper}
+import com.codacy.plugins.api.languages.{Language, Languages}
+import com.codacy.plugins.api.metrics.{FileMetrics, LineComplexity, MetricsTool}
+import com.codacy.plugins.api.{Options, Source}
 
 import scala.util.matching.Regex
 import scala.util.{Failure, Properties, Try}
@@ -20,12 +20,12 @@ object ESLint extends MetricsTool {
     """(?:Function|Constructor|Method)\s*.*?\s*has a complexity of (\d+). \(complexity\)""".r
 
   override def apply(source: Source.Directory,
-                     languageOpt: Option[Language],
+                     language: Option[Language],
                      files: Option[Set[Source.File]],
-                     options: Map[MetricsConfiguration.Key, MetricsConfiguration.Value]): Try[List[FileMetrics]] = {
-    languageOpt match {
-      case Some(language) if language != Languages.Javascript =>
-        Failure(new Exception(s"ESLint only supports Javascript. Provided language: ${language.name}"))
+                     options: Map[Options.Key, Options.Value]): Try[List[FileMetrics]] = {
+    language match {
+      case Some(lang) if lang != Languages.Javascript =>
+        Failure(new Exception(s"ESLint only supports Javascript. Provided language: ${lang.name}"))
       case _ =>
         withToolSetup(source, files) { (command, outputFile) =>
           CommandRunner.exec(command, Some(File(source.path).toJava)) match {
@@ -56,7 +56,9 @@ object ESLint extends MetricsTool {
     }).get()
   }
 
-  private def dockerCommand(outputFile: File, toolConfiguration: List[String], targetFiles: List[String]) = {
+  private def dockerCommand(outputFile: File,
+                            toolConfiguration: List[String],
+                            targetFiles: List[String]): List[String] = {
     List(
       "eslint",
       "--no-eslintrc",
@@ -70,7 +72,7 @@ object ESLint extends MetricsTool {
       s"${outputFile.toJava.getCanonicalPath}") ++ toolConfiguration ++ targetFiles
   }
 
-  private def writeConfigFile(file: File) = {
+  private def writeConfigFile(file: File): File = {
     val content =
       """{
          |  "env": {
@@ -154,7 +156,7 @@ object ESLint extends MetricsTool {
     Failure(new Exception(msg))
   }
 
-  private def absolutePath(relativePath: String, prefix: Option[String] = None) = {
+  private def absolutePath(relativePath: String, prefix: Option[String] = None): String = {
     prefix match {
       case Some(pref) =>
         (pref / relativePath).toJava.getCanonicalPath
