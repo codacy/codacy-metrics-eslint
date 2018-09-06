@@ -1,9 +1,9 @@
 package codacy.metrics
 
 import better.files.File
-import codacy.docker.api.Source
-import codacy.docker.api.metrics.{FileMetrics, LineComplexity}
-import com.codacy.api.dtos.Languages
+import com.codacy.plugins.api.Source
+import com.codacy.plugins.api.languages.Languages
+import com.codacy.plugins.api.metrics.{FileMetrics, LineComplexity}
 import org.specs2.mutable.Specification
 
 import scala.util.{Failure, Success}
@@ -43,7 +43,7 @@ class ESLintTest extends Specification {
         val fileMetrics =
           ESLint(
             source = Source.Directory(targetDir),
-            languageOpt = Some(Languages.Javascript),
+            language = Some(Languages.Javascript),
             files = None,
             options = Map.empty)
 
@@ -58,7 +58,7 @@ class ESLintTest extends Specification {
 
         val fileMetrics = ESLint(
           source = Source.Directory(targetDir),
-          languageOpt = None,
+          language = None,
           files =
             Some(Set(Source.File(expectedGetSchwiftyMetrics.filename), Source.File(expectedTerryFoldMetrics.filename))),
           options = Map.empty)
@@ -72,7 +72,7 @@ class ESLintTest extends Specification {
         val fileMetrics =
           ESLint(
             source = Source.Directory(scalaDir),
-            languageOpt = Some(Languages.Javascript),
+            language = Some(Languages.Javascript),
             files = None,
             options = Map.empty)
 
@@ -88,7 +88,7 @@ class ESLintTest extends Specification {
         val fileMetrics =
           ESLint(
             source = Source.Directory(scalaDir),
-            languageOpt = Some(Languages.Scala),
+            language = Some(Languages.Scala),
             files = None,
             options = Map.empty)
 
