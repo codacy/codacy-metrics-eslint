@@ -62,6 +62,7 @@ object ESLint extends MetricsTool {
     List(
       "eslint",
       "--no-eslintrc",
+      "--no-ignore",
       "-f",
       "checkstyle",
       "--ext",
