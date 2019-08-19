@@ -17,7 +17,7 @@ import scala.xml.{Elem, NodeSeq}
 object ESLint extends MetricsTool {
 
   private val ComplexityRegex: Regex =
-    """(?:Function|Constructor|Method)\s*.*?\s*has a complexity of (\d+). \(complexity\)""".r
+    """(?:Arrow function|Function|Constructor|Method)\s*.*?\s*has a complexity of (\d+). \(complexity\)""".r
 
   override def apply(source: Source.Directory,
                      language: Option[Language],
