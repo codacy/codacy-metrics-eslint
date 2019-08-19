@@ -86,3 +86,7 @@ project/plugins/project/
 
 # Node dependencies installed through npm
 node_modules/
+
+# Metals
+.metals
+.bloop
