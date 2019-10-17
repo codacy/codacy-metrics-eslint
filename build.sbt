@@ -1,43 +1,39 @@
-import sbt.Keys._
-import sbt._
+import com.typesafe.sbt.packager.docker.{Cmd, DockerAlias}
 
-
+enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
+organization := "com.codacy"
+scalaVersion := "2.13.1"
 name := "codacy-metrics-eslint"
+libraryDependencies ++= Seq(
+  "com.codacy" %% "codacy-metrics-scala-seed" % "0.2.0",
+  "org.scala-lang.modules" %% "scala-xml" % "1.2.0",
+  "org.specs2" %% "specs2-core" % "4.8.0" % Test)
 
-version := "1.0.0-SNAPSHOT"
+mappings in Universal ++= {
+  (resourceDirectory in Compile).map { resourceDir: File =>
+    val src = resourceDir / "docs"
+    val dest = "/docs"
 
-val scalaBinaryVersionNumber = "2.12"
-val scalaVersionNumber = s"$scalaBinaryVersionNumber.4"
-
-scalaVersion := scalaVersionNumber
-scalaVersion in ThisBuild := scalaVersionNumber
-scalaBinaryVersion in ThisBuild := scalaBinaryVersionNumber
-
-scapegoatVersion in ThisBuild := "1.3.5"
-
-lazy val codacyMetricsESLint = project
-  .in(file("."))
-  .enablePlugins(JavaAppPackaging)
-  .enablePlugins(DockerPlugin)
-  .settings(
-    inThisBuild(
-      List(
-        organization := "com.codacy",
-        scalaVersion := scalaVersionNumber,
-        version := "0.1.0-SNAPSHOT",
-        resolvers := Seq("Sonatype OSS Snapshots".at("https://oss.sonatype.org/content/repositories/releases")) ++ resolvers.value,
-        scalacOptions ++= Common.compilerFlags,
-        scalacOptions in Test ++= Seq("-Yrangepos"),
-        scalacOptions in (Compile, console) --= Seq("-Ywarn-unused:imports", "-Xfatal-warnings"))),
-    // App Dependencies
-    libraryDependencies ++= Seq(Dependencies.Codacy.metricsSeed),
-    // Test Dependencies
-    libraryDependencies ++= Seq(Dependencies.specs2).map(_ % Test))
-  .settings(Common.dockerSettings: _*)
-
-mappings.in(Universal) ++= baseDirectory
-  .in(Compile)
-  .map { baseDir: File =>
-    Seq((baseDir / "scripts/install-tool.sh", "install-tool.sh"))
+    for {
+      path <- src.allPaths.get if !path.isDirectory
+    } yield path -> path.toString.replaceFirst(src.toString, dest)
   }
-  .value
+}.value
+
+dockerBaseImage := "openjdk:8-jre-alpine"
+Docker / daemonUser := "docker"
+Docker / daemonGroup := "docker"
+dockerEntrypoint := Seq(s"/opt/docker/bin/${name.value}")
+dockerCommands := dockerCommands.value.flatMap {
+  case cmd @ Cmd("ADD", _) =>
+    Seq(
+      Cmd("RUN", "adduser -u 2004 -D docker"),
+      cmd,
+      Cmd(
+        "RUN",
+        "apk update && apk --no-cache add bash curl nodejs-npm && npm install -g npm@5 eslint@5.16.0 babel-eslint@10.0.3"),
+      Cmd("ENV", "NODE_PATH /usr/lib/node_modules"),
+      Cmd("RUN", "mv /opt/docker/docs /docs"))
+  case other => List(other)
+}

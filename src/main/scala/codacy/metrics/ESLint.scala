@@ -44,7 +44,7 @@ object ESLint extends MetricsTool {
     fn: (List[String], File) => T): T = {
     val targetFiles: List[String] =
       files.fold(List(absolutePath(source.path)))(
-        _.map(file => absolutePath(file.path, Some(source.path)))(collection.breakOut))
+        _.view.map(file => absolutePath(file.path, Some(source.path))).to(List))
     (for {
       outputFile <- File.temporaryFile(suffix = ".xml")
       configFile <- File.temporaryFile(suffix = ".json")
@@ -127,7 +127,7 @@ object ESLint extends MetricsTool {
   }
 
   private def parseToolResult(outputXml: Elem, sourcePath: String): List[FileMetrics] = {
-    (outputXml \ "file").map { file =>
+    (outputXml \ "file").view.map { file =>
       val fileName = file \@ "name"
       val fileIssues: NodeSeq = file \ "error"
       val complexities: Seq[LineComplexity] = fileIssues.flatMap { issue =>
@@ -143,7 +143,7 @@ object ESLint extends MetricsTool {
         nrMethods = None,
         nrClasses = None,
         lineComplexities = complexities.toSet)
-    }(collection.breakOut)
+    }.to(List)
   }
 
   private def handleFailure(e: Throwable, resultFromTool: CommandResult): Try[List[FileMetrics]] = {
