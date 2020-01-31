@@ -24,7 +24,7 @@ export const defaultOptions: CLIEngine.Options = {
     ],
     rules: {
       complexity: [1, 0]
-    },
+    }
   },
   cwd: "/src"
 }

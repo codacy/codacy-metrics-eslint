@@ -25,9 +25,13 @@ async function run() {
 
   const filesToAnalyze = files && files.length > 0 ? files : ["/src/**"]
 
-  const eslintResults = new CLIEngine(defaultOptions).executeOnFiles(filesToAnalyze)
+  const eslintResults = new CLIEngine(defaultOptions).executeOnFiles(
+    filesToAnalyze
+  )
 
-  const codacyResults = convertResults(eslintResults).map(r => r.relativeTo(srcDirPath))
+  const codacyResults = convertResults(eslintResults).map(r =>
+    r.relativeTo(srcDirPath)
+  )
 
   const lines = resultString(codacyResults)
 

@@ -19,8 +19,8 @@
   "license": "Apache-2.0",
   "main": "dist/src/index.js",
   "directories": {
-    "test": "./src/test",
-    "src": "./src"
+    "src": "./src",
+    "test": "./src/test"
   },
   "scripts": {
     "compile": "tsc",
@@ -33,6 +33,7 @@
     }
   },
   "lint-staged": {
+    "*.{js,css,md}": "prettier --write",
     "package.json": [
       "sort-package-json",
       "git add"
@@ -41,8 +42,7 @@
       "prettier --write",
       "eslint --fix",
       "git add"
-    ],
-    "*.{js,css,md}": "prettier --write"
+    ]
   },
   "prettier": {
     "semi": false
@@ -62,7 +62,6 @@
     "typescript": "^3.7.5"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
     "@types/chai": "^4.2.8",
     "@types/eslint": "^6.1.7",
     "@types/lodash": "^4.14.149",
@@ -70,6 +69,7 @@
     "@types/node": "^13.5.3",
     "@types/node-fetch": "^2.5.4",
     "@types/simple-mock": "^0.8.1",
+    "chai": "^4.2.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-simple-import-sort": "^5.0.1",
     "eslint-plugin-unused-imports": "^0.1.2",

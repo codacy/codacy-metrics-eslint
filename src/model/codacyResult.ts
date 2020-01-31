@@ -1,4 +1,4 @@
-import { relative } from 'path'
+import { relative } from "path"
 
 export class LineComplexity {
   readonly line: number
@@ -15,7 +15,11 @@ export class CodacyResult {
   readonly complexity: number
   readonly lineComplexities: LineComplexity[]
 
-  constructor(filename: string, complexity: number, lineComplexities: LineComplexity[]) {
+  constructor(
+    filename: string,
+    complexity: number,
+    lineComplexities: LineComplexity[]
+  ) {
     this.filename = filename
     this.complexity = complexity
     this.lineComplexities = lineComplexities

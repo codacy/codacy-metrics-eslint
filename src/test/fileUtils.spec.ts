@@ -13,7 +13,7 @@ describe("fileUtils", () => {
       }`
       const parsed = parseCodacyrcFile(codacyrcFileContent)
       const expected: Codacyrc = {
-        files : [ "foo/bar/baz.scala", "foo2/bar/baz.scala" ],
+        files: ["foo/bar/baz.scala", "foo2/bar/baz.scala"],
         language: "Scala"
       }
       deepEqual(parsed, expected)
