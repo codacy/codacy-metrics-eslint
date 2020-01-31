@@ -41,7 +41,8 @@
       "prettier --write",
       "eslint --fix",
       "git add"
-    ]
+    ],
+    "*.{js,css,md}": "prettier --write"
   },
   "prettier": {
     "semi": false
