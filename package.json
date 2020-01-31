@@ -1,0 +1,84 @@
+{
+  "name": "codacy-metrics-eslint",
+  "description": "Eslint Metrics Tool for Codacy",
+  "keywords": [
+    "codacy",
+    "eslint",
+    "javascript",
+    "complexity",
+    "typescript"
+  ],
+  "homepage": "https://github.com/codacy/codacy-eslint#readme",
+  "bugs": {
+    "url": "https://github.com/codacy/codacy-eslint/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codacy/codacy-eslint.git"
+  },
+  "license": "Apache-2.0",
+  "main": "dist/src/index.js",
+  "directories": {
+    "test": "./src/test",
+    "src": "./src"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dockerBuild": "docker build -t codacy-metrics-eslint .",
+    "test": "mocha"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "package.json": [
+      "sort-package-json",
+      "git add"
+    ],
+    "src/*.{ts,js,css,json,md}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "semi": false
+  },
+  "mocha": {
+    "extension": [
+      "ts"
+    ],
+    "require": "ts-node/register",
+    "spec": "src/test/**/*.spec.ts"
+  },
+  "dependencies": {
+    "@nodelib/fs.walk": "^1.2.4",
+    "@typescript-eslint/parser": "^2.18.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "@types/chai": "^4.2.8",
+    "@types/eslint": "^6.1.7",
+    "@types/lodash": "^4.14.149",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.5.3",
+    "@types/node-fetch": "^2.5.4",
+    "@types/simple-mock": "^0.8.1",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-simple-import-sort": "^5.0.1",
+    "eslint-plugin-unused-imports": "^0.1.2",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.7",
+    "mocha": "^7.0.1",
+    "prettier": "^1.19.1",
+    "simple-mock": "^0.8.0",
+    "sort-package-json": "^1.39.1",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2"
+  }
+}
