@@ -1,18 +1,11 @@
-# codacy-metrics-eslint
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/project/Codacy/codacy-metrics-eslint/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-metrics-eslint&amp;utm_campaign=Badge_Grade_Dashboard)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/app/Codacy/codacy-metrics-eslint?utm_source=github.com&utm_medium=referral&utm_content=codacy/codacy-metrics-eslint&utm_campaign=Badge_Coverage)
-[![CircleCI](https://circleci.com/gh/codacy/codacy-metrics-eslint.svg?style=svg)](https://circleci.com/gh/codacy/codacy-metrics-eslint)
-[![Docker Version](https://images.microbadger.com/badges/version/codacy/codacy-metrics-eslint.svg)](https://microbadger.com/images/codacy/codacy-metrics-eslint "Get your own version badge on microbadger.com")
-
-This is the docker engine we use at Codacy to get javascript code metrics through [ESLint](https://github.com/eslint/eslint).
+# Codacy Metrics Eslint
 
 ## Usage
 
 You can create the docker by doing:
 
 ```bash
-./scripts/publish.sh
+npm run dockerBuild
 ```
 
 The docker is ran with the following command:
@@ -24,12 +17,25 @@ docker run -it -v $PWD/src/test/resources:/src codacy/codacy-metrics-eslint:late
 
 ## Test
 
-Before running the tests, you need to install ESLint. The tool [README](https://github.com/eslint/eslint/blob/master/README.md) provides you instructions on how to do so.
-
-After that, you can run the tests:
+Before running the tests, you need to install the dependencies:
 
 ```bash
-./scripts/test.sh
+npm install
+```
+
+Then you can run tests using:
+
+```bash
+npm test
+```
+
+### codacy-plugins-test
+
+We use [codacy-plugins-test](https://github.com/codacy/codacy-plugins-test) to run integration tests
+in our tools. After downloading the binary and creating the docker image you can run:
+
+```bash
+codacy-plugins-test metrics codacy-metrics-eslint
 ```
 
 ## What is Codacy
