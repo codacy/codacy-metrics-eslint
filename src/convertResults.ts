@@ -2,10 +2,8 @@ import { CLIEngine, Linter } from "eslint"
 import { flatMap } from "lodash"
 
 import { CodacyResult, LineComplexity } from "./model/codacyResult"
-import { parse } from "querystring"
-import { compileFunction } from "vm"
 
-const ComplexityRegex = /(?:Arrow function|Function|Constructor|Method) '(?:.+)' has a complexity of (\d+)\. Maximum allowed is 0\./
+const ComplexityRegex = /(?:Arrow function|Function|Constructor|Method)\s*.*?\s*has a complexity of (\d+)\. Maximum allowed is 0\./
 
   export function convertResults(report: CLIEngine.LintReport): CodacyResult[] {
   return flatMap(report.results, result => {
