@@ -66,7 +66,7 @@
     "@types/eslint": "^6.1.9",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.9.8",
+    "@types/node": "^13.11.0",
     "@types/node-fetch": "^2.5.5",
     "@types/simple-mock": "^0.8.1",
     "chai": "^4.2.0",
