@@ -76,7 +76,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.1.7",
     "mocha": "^7.1.1",
-    "prettier": "^2.0.4",
+    "prettier": "^2.0.5",
     "simple-mock": "^0.8.0",
     "sort-package-json": "^1.42.0",
     "ts-loader": "^7.0.1",
