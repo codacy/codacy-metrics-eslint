@@ -74,7 +74,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-unused-imports": "^0.1.2",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.0",
+    "lint-staged": "^10.2.2",
     "mocha": "^7.1.2",
     "prettier": "^2.0.5",
     "simple-mock": "^0.8.0",
