@@ -19,8 +19,8 @@
   "license": "Apache-2.0",
   "main": "dist/src/index.js",
   "directories": {
-    "src": "./src",
-    "test": "./src/test"
+    "test": "./src/test",
+    "src": "./src"
   },
   "scripts": {
     "compile": "tsc",
@@ -59,6 +59,7 @@
     "@typescript-eslint/parser": "^2.32.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
+    "json-schema": "^0.2.5",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
