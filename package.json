@@ -65,7 +65,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/eslint": "^6.8.1",
-    "@types/lodash": "^4.14.150",
+    "@types/lodash": "^4.14.151",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.1",
     "@types/node-fetch": "^2.5.7",
