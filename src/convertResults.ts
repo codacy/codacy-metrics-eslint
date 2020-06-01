@@ -8,18 +8,17 @@ const ComplexityRegex = /(?:Arrow function|Function|Constructor|Method)\s*.*?\s*
 export function convertResults(report: CLIEngine.LintReport): CodacyResult[] {
   return flatMap(report.results, result => {
     const filename = result.filePath
-    
-    const lineComplexities = result.messages.reduce<LineComplexity[]>((acc, m) => {
+    const lineComplexities: LineComplexity[] = []
+    result.messages.forEach(m => {
       const line = m.line
       const complexity = m.message.match(ComplexityRegex)
       if (complexity && complexity.length == 2) {
         const parsedComplexity = parseInt(complexity[1])
         if (parsedComplexity != NaN)
-          acc.push(new LineComplexity(line, parsedComplexity))
+          lineComplexities.push(new LineComplexity(line, parsedComplexity))
       }
-      return acc
-    }, [])
-    const complexity = Math.max(...lineComplexities.map(lc => lc.value))
+    })
+    const complexity = lineComplexities.reduce((acc, lc) => Math.max(acc, lc.value), 0)
     return new CodacyResult(filename, complexity, lineComplexities)
   })
 }
