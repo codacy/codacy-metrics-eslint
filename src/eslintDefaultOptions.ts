@@ -26,5 +26,6 @@ export const defaultOptions: CLIEngine.Options = {
       complexity: [1, 0]
     }
   },
-  cwd: "/src"
+  cwd: "/src",
+  useEslintrc: false
 }
