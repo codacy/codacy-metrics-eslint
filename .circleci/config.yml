@@ -17,6 +17,20 @@ workflows:
           persist_to_workspace: true
           requires:
             - codacy/checkout_and_version
+      - codacy/shell:
+          name: test_with_eslintrc
+          cmd: |
+            # codacy-plugins-test can't test metrics with config filters
+            # test if tool ignores custom eslintrc files
+            docker load --input docker-image.tar
+
+            echo "plugins:" > eslint_config
+            echo "  - jest" >> eslint_config
+
+            docker run -v $PWD/docs/tests/:/src -v $PWD/eslint_config:/src/.eslintrc.yaml $CIRCLE_PROJECT_REPONAME:latest
+          persist_to_workspace: true
+          requires:
+            - publish_docker_local
       - codacy_plugins_test/run:
           name: plugins_test
           run_metrics_tests: true
@@ -27,6 +41,7 @@ workflows:
       - codacy/publish_docker:
           context: CodacyDocker
           requires:
+            - test_with_eslintrc
             - plugins_test
           filters:
             branches:
