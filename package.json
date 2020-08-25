@@ -80,7 +80,7 @@
     "prettier": "^2.0.5",
     "simple-mock": "^0.8.0",
     "sort-package-json": "^1.44.0",
-    "ts-loader": "^8.0.2",
+    "ts-loader": "^8.0.3",
     "ts-node": "^9.0.0"
   }
 }
