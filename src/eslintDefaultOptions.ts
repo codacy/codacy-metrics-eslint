@@ -13,19 +13,22 @@ export const defaultOptions: CLIEngine.Options = {
       mocha: true,
       amd: true,
       worker: true,
-      qunit: true
+      qunit: true,
     },
     parser: "babel-eslint",
     overrides: [
       {
         files: ["**/*.ts", "**/*.tsx"],
-        parser: "@typescript-eslint/parser"
-      }
+        parser: "@typescript-eslint/parser",
+        parserOptions: {
+          sourceType: "module",
+        },
+      },
     ],
     rules: {
-      complexity: [1, 0]
-    }
+      complexity: [1, 0],
+    },
   },
   cwd: "/src",
-  useEslintrc: false
+  useEslintrc: false,
 }
