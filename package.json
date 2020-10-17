@@ -63,7 +63,7 @@
     "typescript": "^4.0.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.13",
+    "@types/chai": "^4.2.14",
     "@types/eslint": "^7.2.4",
     "@types/lodash": "^4.14.162",
     "@types/mocha": "^8.0.3",
