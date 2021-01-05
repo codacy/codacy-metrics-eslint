@@ -79,7 +79,7 @@
     "mocha": "^8.2.1",
     "prettier": "^2.2.1",
     "simple-mock": "^0.8.0",
-    "sort-package-json": "^1.48.0",
+    "sort-package-json": "^1.48.1",
     "ts-loader": "^8.0.10",
     "ts-node": "^9.1.1"
   }
