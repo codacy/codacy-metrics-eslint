@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@nodelib/fs.walk": "^1.2.6",
-    "@typescript-eslint/parser": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.20.0",
     "json-schema": "^0.3.0",
