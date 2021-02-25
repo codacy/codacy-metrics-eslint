@@ -71,7 +71,7 @@
     "@types/node-fetch": "^2.5.8",
     "@types/simple-mock": "^0.8.1",
     "chai": "^4.3.0",
-    "eslint-config-prettier": "^8.0.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^1.1.0",
     "husky": "^5.1.1",
