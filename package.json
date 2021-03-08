@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
-    "@types/eslint": "^7.2.6",
+    "@types/eslint": "^7.2.7",
     "@types/lodash": "^4.14.168",
     "@types/mocha": "^8.2.1",
     "@types/node": "^14.14.31",
