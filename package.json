@@ -60,7 +60,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.25.0",
     "json-schema": "^0.3.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.5"
   },
   "devDependencies": {
     "@types/chai": "^4.2.17",
