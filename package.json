@@ -81,6 +81,6 @@
     "simple-mock": "^0.8.0",
     "sort-package-json": "^1.49.0",
     "ts-loader": "^8.0.10",
-    "ts-node": "^9.1.1"
+    "ts-node": "^10.1.0"
   }
 }
