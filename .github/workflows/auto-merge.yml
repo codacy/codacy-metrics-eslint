@@ -13,5 +13,5 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
-          target: minor
+          target: major
           github-token: ${{ secrets.DEPENDABOT_AUTO_MERGE_USER_TOKEN }}
