@@ -73,7 +73,7 @@
     "chai": "^4.3.4",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-unused-imports": "^1.1.1",
+    "eslint-plugin-unused-imports": "^1.1.2",
     "husky": "^7.0.1",
     "lint-staged": "^10.5.4",
     "mocha": "^8.3.2",
