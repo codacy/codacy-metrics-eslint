@@ -72,7 +72,7 @@
     "@types/simple-mock": "^0.8.2",
     "chai": "^4.3.7",
     "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^9.0.0",
     "eslint-plugin-unused-imports": "^1.1.5",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
