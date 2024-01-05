@@ -1,25 +1,40 @@
-import { CLIEngine } from "eslint"
+import { ESLint } from "eslint"
 
-export const defaultOptions: CLIEngine.Options = {
+export const defaultOptions: ESLint.Options = {
   baseConfig: {
     env: {
-      es6: true,
       node: true,
+      amd: true,
       browser: true,
       commonjs: true,
-      jquery: true,
-      phantomjs: true,
+      es2022: true,
+      es6: true,
       jasmine: true,
+      jest: true,
+      jquery: true,
       mocha: true,
-      amd: true,
-      worker: true,
+      phantomjs: true,
       qunit: true,
+      worker: true,
     },
-    parser: "babel-eslint",
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+      sourceType: "script",
+      allowAutomaticSingleRunInference: true,
+      ecmaVersion: 12,
+      errorOnTypeScriptSyntacticAndSemanticIssues: false,
+    },
+    root: true,
+    settings: {
+      node: {
+        paths: ["/src"],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".node", ".mjs", ".cjs", ".mts", ".cts"],
+        tryExtensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".node", ".mjs", ".cjs", ".mts", ".cts"],
+      },
+    },
     overrides: [
       {
-        files: ["**/*.ts", "**/*.tsx"],
-        parser: "@typescript-eslint/parser",
+        files: ["*.ts", "*.tsx", "*.mts", ".cts"],
         parserOptions: {
           sourceType: "module",
         },

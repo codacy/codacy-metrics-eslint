@@ -1,25 +1,22 @@
-ARG NODE_IMAGE_VERSION=16-alpine3.18
+FROM node:lts-alpine3.19 as builder
 
-FROM node:$NODE_IMAGE_VERSION as builder
+COPY . ./
 
-COPY package*.json ./
-RUN npm install
+RUN npm install &&\
+    npm cache clean --force &&\
+    npm run compile &&\
+    npm test
 
-COPY . .
-
-RUN npm run compile
-RUN npm test
-
-FROM node:$NODE_IMAGE_VERSION
+FROM node:lts-alpine3.19
 
 COPY --from=builder dist dist
 COPY --from=builder package.json ./
 COPY --from=builder package-lock.json ./
 COPY --from=builder docs docs
 
-RUN npm install --production
-
-RUN adduser -u 2004 -D docker
-RUN chown -R docker:docker /docs
+RUN npm install --omit=dev &&\
+    npm cache clean --force &&\
+    adduser -u 2004 -D docker &&\
+    chown -R docker:docker /docs
 
 CMD ["node", "dist/src/index.js"]

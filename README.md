@@ -1,14 +1,14 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/gh/codacy/codacy-metrics-eslint?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-metrics-eslint&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/e09ea1ceddb5453abb709b0e147779f1)](https://www.codacy.com/gh/codacy/codacy-metrics-eslint?utm_source=github.com&utm_medium=referral&utm_content=codacy/codacy-metrics-eslint&utm_campaign=Badge_Coverage)
+# Codacy Metrics ESLint
 
-# Codacy Metrics Eslint
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e09ea1ceddb5453abb709b0e147779f1)](https://app.codacy.com/gh/codacy/codacy-metrics-eslint/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![CircleCI](https://circleci.com/gh/codacy/codacy-metrics-eslint.svg?style=svg)](https://circleci.com/gh/codacy/codacy-metrics-eslint)
 
 ## Usage
 
 You can create the docker by doing:
 
 ```bash
-npm run dockerBuild
+npm run build:docker
 ```
 
 The docker is ran with the following command:

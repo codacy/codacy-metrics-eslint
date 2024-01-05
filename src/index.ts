@@ -1,8 +1,7 @@
-import { CLIEngine } from "eslint"
+import { ESLint } from "eslint"
 
-import { convertResults, resultString } from "./convertResults"
-import { defaultOptions } from "./eslintDefaultOptions"
-import { parseCodacyrcFile, readJsonFile } from "./fileUtils"
+import { convertResults } from "./convertResults"
+import { createEslintConfig } from "./configCreator"
 import { parseTimeoutSeconds } from "./parseTimeoutSeconds"
 
 const timeoutHandle = setTimeout(() => {
@@ -11,29 +10,15 @@ const timeoutHandle = setTimeout(() => {
 }, parseTimeoutSeconds(process.env.TIMEOUT_SECONDS) * 1000)
 
 async function run() {
-  const jsonFile = await readJsonFile("/.codacyrc")
-
-  const codacyrc = jsonFile ? parseCodacyrcFile(jsonFile) : undefined
-
-  const files = codacyrc?.files
-
   const srcDirPath = "/src"
+  const [options, files] = await createEslintConfig(srcDirPath)
 
-  defaultOptions.resolvePluginsRelativeTo = "."
+  const eslint = new ESLint(options)
+  const eslintResults = await eslint.lintFiles(files)
 
-  defaultOptions.cwd = srcDirPath
-
-  const filesToAnalyze = files && files.length > 0 ? files : ["/src/**"]
-
-  const eslintResults = new CLIEngine(defaultOptions).executeOnFiles(
-    filesToAnalyze
-  )
-
-  const codacyResults = convertResults(eslintResults).map(r =>
-    r.relativeTo(srcDirPath)
-  )
-
-  const lines = resultString(codacyResults)
+  const lines = convertResults(eslintResults)
+    .map(r => JSON.stringify(r.relativeTo(srcDirPath)))
+    .join("\n")
 
   console.log(lines)
 }
