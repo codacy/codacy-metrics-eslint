@@ -1,16 +1,13 @@
-import { walk as fsWalk } from "@nodelib/fs.walk"
-import fs from "fs"
-import { promisify } from "util"
+import { readFile, readdir } from "fs/promises"
+import path from "path"
 
 import { Codacyrc } from "./model/codacyInput"
 
-export const readFile = promisify(fs.readFile)
-export const writeFile = promisify(fs.writeFile)
-export const walk = promisify(fsWalk)
-
-export async function readJsonFile(file: string): Promise<string | undefined> {
+export async function readCodacyrcFile(file: string): Promise<Codacyrc | undefined> {
   try {
-    return await readFile(file, "utf8")
+    const content = await readFile(file, { encoding: 'utf8' })
+
+    return parseCodacyrcFile(content)
   } catch (e) {
     console.error(`Error reading ${file} file`)
     return undefined
@@ -22,6 +19,14 @@ export function parseCodacyrcFile(content: string): Codacyrc {
 }
 
 export async function allFilesNames(dir: string): Promise<string[]> {
-  const entries = await walk(dir, { followSymbolicLinks: true })
-  return entries.map(entry => entry.name)
+  try {
+    const entries = await readdir(dir, { withFileTypes: true, recursive: true })
+
+    return entries
+      .filter((entry) => entry.isFile() || entry.isSymbolicLink())
+      .map((entry) => path.relative(dir, entry.name))
+  } catch (error) {
+    console.error(`Error reading directory ${dir}`)
+    return []
+  }
 }

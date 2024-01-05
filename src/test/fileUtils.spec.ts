@@ -1,5 +1,4 @@
-import { deepEqual } from "assert"
-import chai from "chai"
+import assert from "assert"
 
 import { parseCodacyrcFile } from "../fileUtils"
 import { Codacyrc } from "../model/codacyInput"
@@ -8,7 +7,7 @@ describe("fileUtils", () => {
   describe("parseCodacyrcFile", () => {
     it("should parse a codacyrc file", () => {
       const codacyrcFileContent = `{
-        "files" : [ "foo/bar/baz.scala", "foo2/bar/baz.scala" ],
+        "files" : ["foo/bar/baz.scala", "foo2/bar/baz.scala"],
         "language": "Scala"
       }`
       const parsed = parseCodacyrcFile(codacyrcFileContent)
@@ -16,7 +15,7 @@ describe("fileUtils", () => {
         files: ["foo/bar/baz.scala", "foo2/bar/baz.scala"],
         language: "Scala"
       }
-      deepEqual(parsed, expected)
+      assert.deepStrictEqual(parsed, expected)
     })
     it("should parse a codacyrc file with no files", () => {
       const codacyrcFileContent = `{
@@ -26,7 +25,7 @@ describe("fileUtils", () => {
       const expected: Codacyrc = {
         language: "Scala"
       }
-      deepEqual(parsed, expected)
+      assert.deepStrictEqual(parsed, expected)
     })
     it("should parse a codacyrc file with no tools", () => {
       const codacyrcFileContent = `{
@@ -36,11 +35,20 @@ describe("fileUtils", () => {
       const expected: Codacyrc = {
         files: ["foo/bar/baz.js", "foo2/bar/baz.php"]
       }
-      deepEqual(parsed, expected)
+      assert.deepStrictEqual(parsed, expected)
     })
     it("should fail with an invalid codacyrc file", () => {
-      const wrongCodacyrcFileContent = `{`
-      chai.expect(() => parseCodacyrcFile(wrongCodacyrcFileContent)).to.throw()
+      const wrongCodacyrcFileContent = `{`;
+      
+      let errorOccurred = false
+    
+      try {
+        parseCodacyrcFile(wrongCodacyrcFileContent)
+      } catch (error) {
+        errorOccurred = true
+      }
+    
+      assert.strictEqual(errorOccurred, true, 'Expected an error to be thrown')
     })
   })
 })

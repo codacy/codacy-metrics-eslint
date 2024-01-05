@@ -8,13 +8,13 @@
     "complexity",
     "typescript"
   ],
-  "homepage": "https://github.com/codacy/codacy-eslint#readme",
+  "homepage": "https://github.com/codacy/codacy-metrics-eslint#readme",
   "bugs": {
-    "url": "https://github.com/codacy/codacy-eslint/issues"
+    "url": "https://github.com/codacy/codacy-metrics-eslint/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codacy/codacy-eslint.git"
+    "url": "git+https://github.com/codacy/codacy-metrics-eslint.git"
   },
   "license": "Apache-2.0",
   "main": "dist/src/index.js",
@@ -25,6 +25,9 @@
   "scripts": {
     "compile": "tsc",
     "dockerBuild": "docker build -t codacy-metrics-eslint .",
+    "build": "tsc --showConfig && tsc",
+    "build:docker": "npm run build && docker build -t codacy-metrics-eslint .",
+    "build:docker:m1": "npm run build && docker build --platform linux/amd64 -t codacy-metrics-eslint .",
     "test": "mocha"
   },
   "husky": {
@@ -52,35 +55,34 @@
       "ts"
     ],
     "require": "ts-node/register",
-    "spec": "src/test/**/*.spec.ts"
+    "spec": "./src/test/**/*.spec.ts"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "dependencies": {
-    "@nodelib/fs.walk": "^1.2.8",
-    "@typescript-eslint/parser": "^5.49.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
+    "@nodelib/fs.walk": "^2.0.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
     "json-schema": "^0.4.0",
-    "typescript": "^4.7.2"
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.4",
-    "@types/eslint": "^7.29.0",
-    "@types/lodash": "^4.14.191",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.18",
-    "@types/node-fetch": "^3.0.3",
-    "@types/simple-mock": "^0.8.2",
-    "chai": "^4.3.7",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-simple-import-sort": "^9.0.0",
-    "eslint-plugin-unused-imports": "^1.1.5",
+    "@types/chai": "^4.3.11",
+    "@types/eslint": "^8.56.1",
+    "@types/lodash": "^4.14.202",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.6",
+    "@types/simple-mock": "^0.8.6",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
+    "lint-staged": "^15.2.0",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.3",
+    "prettier": "^3.1.1",
     "simple-mock": "^0.8.0",
-    "sort-package-json": "^2.2.0",
-    "ts-loader": "^8.0.10",
-    "ts-node": "^10.9.1"
+    "sort-package-json": "^2.6.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2"
   }
 }
