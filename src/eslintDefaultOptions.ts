@@ -21,7 +21,7 @@ export const defaultOptions: ESLint.Options = {
     parserOptions: {
       sourceType: "script",
       allowAutomaticSingleRunInference: true,
-      ecmaVersion: 12,
+      ecmaVersion: 2022,
       errorOnTypeScriptSyntacticAndSemanticIssues: false,
     },
     root: true,

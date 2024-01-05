@@ -1,5 +1,4 @@
 import { ESLint } from "eslint"
-import { flatMap } from "lodash"
 
 import { CodacyResult, LineComplexity } from "./model/codacyResult"
 
@@ -8,21 +7,21 @@ const ComplexityRegex = /.*has a complexity of (\d+).*/
 export function convertResults(eslintResults: ESLint.LintResult[]): CodacyResult[] {
   const convertedResults: CodacyResult[] = []
 
-  eslintResults.forEach((r) => {
-    const filename = r.filePath
+  eslintResults.forEach((result) => {
+    const filename = result.filePath
     const lineComplexities: LineComplexity[] = []
 
-    r.messages
-      .filter((m) => 
-        m.ruleId === "complexity"
-        && m.message?.match(ComplexityRegex)?.length === 2
+    result.messages
+      .filter((message) => 
+        message.ruleId === "complexity"
+        && message.message?.match(ComplexityRegex)?.length === 2
       )
-      .forEach((m) => {
-        const complexityMatch = m.message.match(ComplexityRegex)
+      .forEach((message) => {
+        const complexityMatch = message.message.match(ComplexityRegex)
 
-        if (complexityMatch) {
-          lineComplexities.push(new LineComplexity(m.line, parseInt(complexityMatch[1], 10)))
-        }
+        if (complexityMatch === null) return
+        
+        lineComplexities.push(new LineComplexity(message.line, parseInt(complexityMatch[1], 10)))
       })
 
     const complexity = lineComplexities.reduce((acc, lc) => Math.max(acc, lc.value), 0)

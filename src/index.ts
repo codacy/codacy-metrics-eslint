@@ -4,15 +4,16 @@ import { convertResults } from "./convertResults"
 import { createEslintConfig } from "./configCreator"
 import { parseTimeoutSeconds } from "./parseTimeoutSeconds"
 
+const srcDirPath = "/src"
+const timeoutSeconds = parseTimeoutSeconds(process.env.TIMEOUT_SECONDS)
+
 const timeoutHandle = setTimeout(() => {
   console.error("Timeout occurred. Exiting.")
   process.exit(2)
-}, parseTimeoutSeconds(process.env.TIMEOUT_SECONDS) * 1000)
+}, timeoutSeconds * 1000)
 
 async function run() {
-  const srcDirPath = "/src"
   const [options, files] = await createEslintConfig(srcDirPath)
-
   const eslint = new ESLint(options)
   const eslintResults = await eslint.lintFiles(files)
 
@@ -24,8 +25,8 @@ async function run() {
 }
 
 run()
-  .catch(e => {
-    console.error(e)
+  .catch((error) => {
+    console.error(error)
     process.exit(1)
   })
   .finally(() => clearTimeout(timeoutHandle))
